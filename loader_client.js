@@ -1,5 +1,8 @@
 "use strict"
 
+// create an url for a blob object
+const urlCreator = window.URL || window.webkitURL;
+
 const handleComplete = function(event){
   const self = this;
   Meteor.setTimeout(function(){
@@ -22,7 +25,7 @@ const handleProgress = function(event){
 };
 
 const handleFileload = function(){
-  // TODO handle individual file loading
+   // TODO handle individual file loading
 };
 
 const handleFileprogress = function(){
@@ -81,6 +84,12 @@ Loader = class {
   load(){
     this.queue.load();
     return new Handle(this);
+  }
+
+  url(fileId){
+    const rawResult = true;
+    const blob = this.queue.getResult(fileId, rawResult);
+    return urlCreator.createObjectURL(blob);
   }
 };
 
